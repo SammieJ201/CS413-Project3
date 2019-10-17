@@ -38,6 +38,33 @@ gameStage.addChild(gameGround);
 gameStage.addChild(gameSky);
 /// End of game stage /////////////////
 
+// Load player
+var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
+runner.anchor.set(0.5);
+runner.position.set(WIDTH/2, 350);
+gameStage.addChild(runner);
+
+function runnerControlHandler(e)
+{
+  if(e.keyCode == 87) { runner.position.y -= 10; } // W
+  if(e.keyCode == 83) { runner.position.y += 10; } // S
+  if(e.keyCode == 65) { runner.position.x -= 10; } // A
+  if(e.keyCode == 68) { runner.position.x += 10; } // D
+
+  if(runner.position.x > WIDTH) {runner.position.x = 0;}
+  if(runner.position.x < 0) {runner.position.x = WIDTH;}
+  if(runner.position.y > HEIGHT) {runner.position.y = 0;}
+  if(runner.position.y < 0) {runner.position.y = HEIGHT;}
+
+  // Move stage with charcater
+  gameStage.x = WIDTH/2 - runner.x - runner.width/2;
+  gameStage.y = HEIGHT/2 - runner.y - runner.height/2;
+}
+document.addEventListener('keydown', runnerControlHandler);
+
+
+
+
 
 function animate()
 {
