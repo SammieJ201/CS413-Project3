@@ -23,22 +23,22 @@ playButton.on('mousedown', playButtonHandler);
 menuStage.addChild(playButton);
 
 // Add credits Button
-var playButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/creditsBtn.png"));
-playButton.anchor.set(0.5);
-playButton.position.set(250,200);
-playButton.interactive = true;
-playButton.buttonMode = true;
-playButton.on('mousedown', creditsButtonHandler);
-menuStage.addChild(playButton);
+var creditsButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/creditsBtn.png"));
+creditsButton.anchor.set(0.5);
+creditsButton.position.set(250,200);
+creditsButton.interactive = true;
+creditsButton.buttonMode = true;
+creditsButton.on('mousedown', creditsButtonHandler);
+menuStage.addChild(creditsButton);
 
 // Add instructions Button
-var playButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/htpBtn.png"));
-playButton.anchor.set(0.5);
-playButton.position.set(250,300);
-playButton.interactive = true;
-playButton.buttonMode = true;
-playButton.on('mousedown', instructionsButtonHandler);
-menuStage.addChild(playButton);
+var instructionsButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/htpBtn.png"));
+instructionsButton.anchor.set(0.5);
+instructionsButton.position.set(250,300);
+instructionsButton.interactive = true;
+instructionsButton.buttonMode = true;
+instructionsButton.on('mousedown', instructionsButtonHandler);
+menuStage.addChild(instructionsButton);
 
 // Handles mouse click on play button
 function playButtonHandler(e)
