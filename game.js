@@ -70,11 +70,12 @@ gameGround.position.set(0,350);
 var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-sky.png"));
 gameStage.addChild(gameGround);
 gameStage.addChild(gameSky);
+
 /// End of game stage /////////////////
 
 // Load player
 var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
-runner.anchor.set(0.5);
+runner.anchor.set(0, 1.0);
 runner.position.set(WIDTH/2, 350);
 gameStage.addChild(runner);
 
