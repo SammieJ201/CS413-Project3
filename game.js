@@ -16,14 +16,48 @@ menuStage.addChild(menuBackground);
 // Add play Button
 var playButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/button-play.png"));
 playButton.anchor.set(0.5);
-playButton.position.set(250,200);
+playButton.position.set(250,100);
 playButton.interactive = true;
 playButton.buttonMode = true;
 playButton.on('mousedown', playButtonHandler);
 menuStage.addChild(playButton);
 
+// Add credits Button
+var playButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/creditsBtn.png"));
+playButton.anchor.set(0.5);
+playButton.position.set(250,200);
+playButton.interactive = true;
+playButton.buttonMode = true;
+playButton.on('mousedown', creditsButtonHandler);
+menuStage.addChild(playButton);
+
+// Add instructions Button
+var playButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/htpBtn.png"));
+playButton.anchor.set(0.5);
+playButton.position.set(250,300);
+playButton.interactive = true;
+playButton.buttonMode = true;
+playButton.on('mousedown', instructionsButtonHandler);
+menuStage.addChild(playButton);
+
 // Handles mouse click on play button
 function playButtonHandler(e)
+{
+  stage.removeChild(menuStage); // leave main menu
+  stage.addChild(gameStage);    // Go to game stage
+}
+
+// Handles mouse click on instructions button
+//TODO: Wire up to background-instructions
+function instructionsButtonHandler(e)
+{
+  stage.removeChild(menuStage); // leave main menu
+  stage.addChild(gameStage);    // Go to game stage
+}
+
+// Handles mouse click on credits button
+//TODO: Wire up to background-credits
+function creditsButtonHandler(e)
 {
   stage.removeChild(menuStage); // leave main menu
   stage.addChild(gameStage);    // Go to game stage
