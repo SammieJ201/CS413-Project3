@@ -71,9 +71,8 @@ var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/backgro
 gameStage.addChild(gameGround);
 gameStage.addChild(gameSky);
 
-/// End of game stage /////////////////
 
-// Load player
+// Load runner
 var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
 runner.anchor.set(0, 1.0);
 runner.position.set(WIDTH/2, 350);
@@ -90,20 +89,20 @@ function runnerControlHandler(e)
   if(runner.position.x < 0) {runner.position.x = WIDTH;}
   if(runner.position.y > HEIGHT) {runner.position.y = 0;}
   if(runner.position.y < 0) {runner.position.y = HEIGHT;}
-
-  // Move stage with charcater
-  gameStage.x = WIDTH/2 - runner.x - runner.width/2;
-  gameStage.y = HEIGHT/2 - runner.y - runner.height/2;
 }
 document.addEventListener('keydown', runnerControlHandler);
 
-
-
-
+// Keeps runner in the center of the gameStage.
+function update_camera()
+{
+  gameStage.x = WIDTH/2 - runner.x - runner.width;
+  gameStage.y = HEIGHT/2 - runner.y + runner.height*1.5;
+}
 
 function animate()
 {
     requestAnimationFrame(animate);
+    update_camera();
     renderer.render(stage);
 }
 animate();
