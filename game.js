@@ -27,6 +27,10 @@ function playButtonHandler(e)
 {
   stage.removeChild(menuStage); // leave main menu
   stage.addChild(gameStage);    // Go to game stage
+  
+    PIXI.loader
+	.add("Assets/Character/char_spritesheet.json")
+	.load(startGame);
 }
 
 // Add instructions Button
@@ -122,41 +126,83 @@ gameGround.position.set(0,350);
 var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-sky.png"));
 gameStage.addChild(gameGround);
 gameStage.addChild(gameSky);
+
 /// End of game stage /////////////////
 
-
-
-// Load runner
-var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
+// Load player
+/*var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
 runner.anchor.set(0, 1.0);
 runner.position.set(WIDTH/2, 350);
 gameStage.addChild(runner);
+*/
 
+var character = new PIXI.Container();
+
+function startGame()
+{
+	gameStage.addChild(character);
+	runIdle();
+}
+
+//var idle = true;
+var idle, runner;
+var runnerOnStage = false;
+// Runs the idle animation.
+function runIdle()
+{
+	var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+	idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
+	idle.position.set(WIDTH/2, 350);
+	idle.anchor.set(0.5);
+	idle.animationSpeed = 0.1;
+	idle.play();
+	character.addChild(idle);
+	
+}
 function runnerControlHandler(e)
 {
-  if(e.keyCode == 87) { runner.position.y -= 10; } // W
-  if(e.keyCode == 83) { runner.position.y += 10; } // S
-  if(e.keyCode == 65) { runner.position.x -= 10; } // A
-  if(e.keyCode == 68) { runner.position.x += 10; } // D
+  var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+  
+  if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
+  {
+	if(runnerOnStage == false){
+		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
+		runner.position.set(WIDTH/2, 350);
+		runner.anchor.set(0.5);
+		runner.animationSpeed = 0.1;
+		character.removeChild(idle);
+		character.addChild(runner);
+		runner.play();
+		runnerOnStage = true;	
+	}
+	
+	if(e.keyCode == 87) { runner.position.y -= 10;} // W
+    if(e.keyCode == 83) { runner.position.y += 10;} // S
+    if(e.keyCode == 65) { runner.position.x -= 10;} // A
+    if(e.keyCode == 68) { runner.position.x += 10;} // D
+	  
+  }
+  
 
   if(runner.position.x > WIDTH) {runner.position.x = 0;}
   if(runner.position.x < 0) {runner.position.x = WIDTH;}
   if(runner.position.y > HEIGHT) {runner.position.y = 0;}
   if(runner.position.y < 0) {runner.position.y = HEIGHT;}
+
+  // Move stage with charcater
+  gameStage.x = WIDTH/2 - runner.x - runner.width/2;
+  gameStage.y = HEIGHT/2 - runner.y - runner.height/2;
 }
+
 document.addEventListener('keydown', runnerControlHandler);
 
-// Keeps runner in the center of the gameStage.
-function update_camera()
-{
-  gameStage.x = WIDTH/2 - runner.x - runner.width;
-  gameStage.y = HEIGHT/2 - runner.y + runner.height*1.5;
-}
+
+
+
 
 function animate()
 {
     requestAnimationFrame(animate);
-    update_camera();
     renderer.render(stage);
 }
 animate();
