@@ -192,10 +192,22 @@ function runnerControlHandler(e)
 		runnerOnStage = true;
 	}
 
-	  if(e.keyCode == 87) { runner.position.y -= 10;} // W
-    if(e.keyCode == 83) { runner.position.y += 10;} // S
-    if(e.keyCode == 65) { runner.position.x -= 10;} // A
-    if(e.keyCode == 68) { runner.position.x += 10;} // D
+	if(e.keyCode == 87) {
+		runner.position.y -= 10;
+		runner.scale.x = 1;
+	} // W
+    if(e.keyCode == 83) {
+		runner.position.y += 10;
+		runner.scale.x = 1;
+		} // S
+    if(e.keyCode == 65) {
+		runner.position.x -= 10;
+		runner.scale.x = -1;
+	} // A
+    if(e.keyCode == 68) {
+		runner.position.x += 10;
+		runner.scale.x = 1;
+	} // D
 
   }
 
