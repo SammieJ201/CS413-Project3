@@ -124,25 +124,26 @@ var gameStage = new PIXI.Container();
 var gameGround = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-ground.png"));
 gameGround.position.set(0,350);
 var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-sky.png"));
-//gameStage.addChild(gameGround);
-//gameStage.addChild(gameSky);
+gameStage.addChild(gameGround);
+gameStage.addChild(gameSky);
 
+/*
 var tu = new TileUtilities(PIXI);
 
 PIXI.loader
-  .add("map1", "Assets/Maps/map1.json")
-  .add("grass_tile", "Assets/Tiles/grass_tile.png")
-  .load(create_world)
+  .add('map1', 'Assets/Maps/map1.json')
+  .add('grass_tile', 'Assets/Tiles/grass_tile.png')
+  .load(create_world);
 
 function create_world()
 {
-
-  var world = tu.makeTiledWorld("map1", "grass_tile");
+  var world = tu.makeTiledWorld('map1', 'grass_tile');
+  world.anchor.set(0, 0);
+  world.position.set(0, 0);
   gameStage.addChild(world);
-}
+}*/
 /// End of game stage /////////////////
 
-/// End of game stage /////////////////
 
 // Load player
 /*var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
@@ -191,18 +192,12 @@ function runnerControlHandler(e)
 		runnerOnStage = true;
 	}
 
-	if(e.keyCode == 87) { runner.position.y -= 10;} // W
+	  if(e.keyCode == 87) { runner.position.y -= 10;} // W
     if(e.keyCode == 83) { runner.position.y += 10;} // S
     if(e.keyCode == 65) { runner.position.x -= 10;} // A
     if(e.keyCode == 68) { runner.position.x += 10;} // D
 
   }
-
-
-  if(runner.position.x > WIDTH) {runner.position.x = 0;}
-  if(runner.position.x < 0) {runner.position.x = WIDTH;}
-  if(runner.position.y > HEIGHT) {runner.position.y = 0;}
-  if(runner.position.y < 0) {runner.position.y = HEIGHT;}
 
   // Move stage with charcater
   gameStage.x = WIDTH/2 - runner.x - runner.width/2;
