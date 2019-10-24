@@ -120,10 +120,23 @@ var gameStage = new PIXI.Container();
 var gameGround = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-ground.png"));
 gameGround.position.set(0,350);
 var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-sky.png"));
-gameStage.addChild(gameGround);
-gameStage.addChild(gameSky);
-/// End of game stage /////////////////
+//gameStage.addChild(gameGround);
+//gameStage.addChild(gameSky);
 
+var tu = new TileUtilities(PIXI);
+
+PIXI.loader
+  .add("map1", "Assets/Maps/map1.json")
+  .add("grass_tile", "Assets/Tiles/grass_tile.png")
+  .load(create_world)
+
+function create_world()
+{
+
+  var world = tu.makeTiledWorld("map1", "grass_tile");
+  gameStage.addChild(world);
+}
+/// End of game stage /////////////////
 
 
 // Load runner
