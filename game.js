@@ -153,10 +153,13 @@ gameStage.addChild(runner);
 
 var character = new PIXI.Container();
 
+var gamePlaying = false;
+
 function startGame()
 {
 	gameStage.addChild(character);
 	runIdle();
+	gamePlaying = true;
 }
 
 //var idle = true;
@@ -165,13 +168,18 @@ var runnerOnStage = false;
 // Runs the idle animation.
 function runIdle()
 {
-	var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
-	idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
-	idle.position.set(WIDTH/2, 350);
-	idle.anchor.set(0.5);
-	idle.animationSpeed = 0.1;
+	if(runnerOnStage == false)
+	{
+		var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+		idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
+		idle.position.set(WIDTH/2, 350);
+		idle.anchor.set(0.5);
+		idle.animationSpeed = 0.1;
+		character.addChild(idle);
+		idleOnStage = true;
+	}
+	
 	idle.play();
-	character.addChild(idle);
 
 }
 function runnerControlHandler(e)
@@ -207,7 +215,7 @@ function runnerControlHandler(e)
 		runner.position.x += 10;
 		runner.scale.x = 1;
 	} // D
-
+	
   }
 
 
@@ -222,7 +230,6 @@ function runnerControlHandler(e)
 }
 
 document.addEventListener('keydown', runnerControlHandler);
-
 
 
 
