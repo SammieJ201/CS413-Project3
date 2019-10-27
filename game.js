@@ -121,14 +121,10 @@ creditStage.addChild(creditText);
 
 /// Game Stage ////////////////////////
 var gameStage = new PIXI.Container();
-/*var gameGround = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-ground.png"));
-gameGround.position.set(0,350);
-var gameSky = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-game-sky.png"));
-gameStage.addChild(gameGround);
-gameStage.addChild(gameSky);*/
 
 var TILE_HEIGHT = 50;
 var TILE_WIDTH = 50;
+//var skyTileTex = PIXI.Texture.fromImage("Assets/Tiles/sky_tile.png");   // 0 in the tileMap array
 var grassTileTex = PIXI.Texture.fromImage("Assets/Tiles/grass_tile.png"); // 1 in the tileMap array
 var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 in the tileMap array
 
@@ -156,22 +152,20 @@ function draw_map()
 
     for(var j = 0; j < subArray.length; j++) // Iterate through x
     {
-      //var newTile;
-
       if(subArray[j] == 0)
       {
         // Draw default backgorund. Maybe sky.
       }
       if(subArray[j] == 1) // Draw grass
       {
-        newTile = new PIXI.Sprite(grassTileTex);  // Load sprite
+        var newTile = new PIXI.Sprite(grassTileTex);  // Load sprite
         newTile.anchor.set(0, 1);           // Set anchor
         newTile.position.set(cur_x, cur_y); // Set position
         gameStage.addChild(newTile);        // Add to stage
       }
       if(subArray[j] == 2) // Draw dirt
       {
-        newTile = new PIXI.Sprite(dirtTileTex);  // Load sprite
+        var newTile = new PIXI.Sprite(dirtTileTex);  // Load sprite
         newTile.anchor.set(0, 1);           // Set anchor
         newTile.position.set(cur_x, cur_y); // Set position
         gameStage.addChild(newTile);        // Add to stage
