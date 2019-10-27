@@ -124,16 +124,17 @@ var gameStage = new PIXI.Container();
 
 var TILE_HEIGHT = 50;
 var TILE_WIDTH = 50;
-//var skyTileTex = PIXI.Texture.fromImage("Assets/Tiles/sky_tile.png");   // 0 in the tileMap array
+var skyTileTex = PIXI.Texture.fromImage("Assets/Tiles/sky_tile.png");   // 0 in the tileMap array
 var grassTileTex = PIXI.Texture.fromImage("Assets/Tiles/grass_tile.png"); // 1 in the tileMap array
 var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 in the tileMap array
+var cloudTileTex = PIXI.Texture.fromImage("Assets/Tiles/cloud_tile.png");   // 3 in the tileMap array
 
 var tileMap =
 [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -154,7 +155,10 @@ function draw_map()
     {
       if(subArray[j] == 0)
       {
-        // Draw default backgorund. Maybe sky.
+        var newTile = new PIXI.Sprite(skyTileTex);  // Load sprite
+        newTile.anchor.set(0, 1);           // Set anchor
+        newTile.position.set(cur_x, cur_y); // Set position
+        gameStage.addChild(newTile);       // Add to stage
       }
       if(subArray[j] == 1) // Draw grass
       {
@@ -166,6 +170,13 @@ function draw_map()
       if(subArray[j] == 2) // Draw dirt
       {
         var newTile = new PIXI.Sprite(dirtTileTex);  // Load sprite
+        newTile.anchor.set(0, 1);           // Set anchor
+        newTile.position.set(cur_x, cur_y); // Set position
+        gameStage.addChild(newTile);        // Add to stage
+      }
+	  if(subArray[j] == 3) // Draw dirt
+      {
+        var newTile = new PIXI.Sprite(cloudTileTex);  // Load sprite
         newTile.anchor.set(0, 1);           // Set anchor
         newTile.position.set(cur_x, cur_y); // Set position
         gameStage.addChild(newTile);        // Add to stage
@@ -193,6 +204,16 @@ var gamePlaying = false;
 
 function startGame()
 {
+	// Play background music
+	PIXI.sound.Sound.from({
+		url: 'Assets/Sounds/background_music2.mp3',
+		autoPlay: true,
+		loop: true,
+		complete: function() {
+			console.log('Sound finished');
+		}
+	});
+	
 	gameStage.addChild(character);
 	runIdle();
 	gamePlaying = true;
@@ -211,7 +232,7 @@ function runIdle()
 	idle.position.set(WIDTH/2, HEIGHT - 150);
 	idle.anchor.set(0.5);
 	idle.animationSpeed = 0.1;
-  character.addChild(idle);
+	character.addChild(idle);
 	idle.play();
 }
 function keyDownControlHandler(e)
