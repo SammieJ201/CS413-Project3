@@ -136,8 +136,8 @@ var tileMap =
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
- [2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+ [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+ [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 // Iterates starting from the bottom left to the top right.
 // To make the map bigger, add rows to the top and columns to the right.
@@ -177,22 +177,6 @@ function draw_map()
   }
 }
 draw_map();
-
-/*
-var tu = new TileUtilities(PIXI);
-
-PIXI.loader
-  .add('map1', 'Assets/Maps/map1.json')
-  .add('grass_tile', 'Assets/Tiles/grass_tile.png')
-  .load(create_world);
-
-function create_world()
-{
-  var world = tu.makeTiledWorld('map1', 'grass_tile');
-  world.anchor.set(0, 0);
-  world.position.set(0, 0);
-  gameStage.addChild(world);
-}*/
 /// End of game stage /////////////////
 
 
@@ -216,6 +200,8 @@ function startGame()
 
 //var idle = true;
 var idle, runner;
+var new_x, new_y, vx = 0, vy = 0;
+var max_v = 30;
 var runnerOnStage = false;
 // Runs the idle animation.
 function runIdle()
@@ -225,43 +211,60 @@ function runIdle()
 	idle.position.set(WIDTH/2, HEIGHT - 150);
 	idle.anchor.set(0.5);
 	idle.animationSpeed = 0.1;
+  character.addChild(idle);
 	idle.play();
-
 }
-function runnerControlHandler(e)
+function keyDownControlHandler(e)
 {
   var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
 
   if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
   {
-	if(runnerOnStage == false){
-		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
-		runner.position.set(WIDTH/2, HEIGHT - 150);
-		runner.anchor.set(0.5);
-		runner.animationSpeed = 0.1;
-		character.removeChild(idle);
-		character.addChild(runner);
-		runner.play();
-		runnerOnStage = true;
-	}
+  	if(runnerOnStage == false){
+  		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
+  		runner.position.set(WIDTH/2, HEIGHT - 150);
+  		runner.anchor.set(0.5);
+  		runner.animationSpeed = 0.1;
+  		runnerOnStage = true;
+  	}
+    character.removeChild(idle);
+    character.addChild(runner);
+    runner.play();
 
-	if(e.keyCode == 87) {
-		runner.position.y -= 15;
-		runner.scale.x = 1;
-	} // W
-    if(e.keyCode == 83) {
-		runner.position.y += 15;
-		runner.scale.x = 1;
-		} // S
-    if(e.keyCode == 65) {
-		runner.position.x -= 15;
-		runner.scale.x = -1;
-	} // A
-    if(e.keyCode == 68) {
-		runner.position.x += 15;
-		runner.scale.x = 1;
-	} // D
+  	if(e.keyCode == 87) // W
+    {
+      //vy -= 9;
+  		//new_y = runner.position.y - 100;
+  		runner.scale.x = 1;
+  	}
+    /*if(e.keyCode == 83) // S
+    {
+  		runner.position.y += 15;
+  		runner.scale.x = 1;
+  	}*/
+    if(e.keyCode == 65) // A
+    {
+      if(vx >= -max_v) { vx -= 2; } // Limits max speed.
+  		//new_x = runner.position.x - 15;
+      //runner.position.x -= 15;
+  		runner.scale.x = -1;
+    }
+    if(e.keyCode == 68) // D
+    {
+      if(vx <= max_v) { vx += 2; } // Limits max speed.
+  		//new_x = runner.position.x + 15;
+      //runner.position.x += 15;
+  		runner.scale.x = 1;
+  	}
 
+    /*if(runner.y <= 400)
+    {
+      //vy += 10;
+    }*/
+    runner.position.x += vx;
+    runner.position.y += vy;
+
+    //createjs.Tween.get(runner.position).to({x: new_x, y: new_y}, 1000); // Tween to new position.
   }
 
   // Move stage with charcater
@@ -269,7 +272,24 @@ function runnerControlHandler(e)
   gameStage.position.y = HEIGHT - 50 - runner.y - runner.height;
 }
 
-document.addEventListener('keydown', runnerControlHandler);
+function keyUpControlHandler(e)
+{
+  // Stops the movement of the runner.
+  vx = 0;
+  vy = 0;
+
+  // Set the idle sprite to the same position as the runner sprite.
+  idle.x = runner.x;
+  idle.y = runner.y;
+
+  // Change sprite to idle.
+  character.removeChild(runner);
+  character.addChild(idle);
+	idle.play();
+}
+
+document.addEventListener('keydown', keyDownControlHandler);
+document.addEventListener('keyup', keyUpControlHandler);
 
 function animate()
 {
