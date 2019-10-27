@@ -208,6 +208,7 @@ function startGame()
 	PIXI.sound.Sound.from({
 		url: 'Assets/Sounds/background_music2.mp3',
 		autoPlay: true,
+		volume: .5,
 		loop: true,
 		complete: function() {
 			console.log('Sound finished');
