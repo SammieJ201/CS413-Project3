@@ -136,8 +136,8 @@ var tileMap =
  [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+ [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 // Iterates starting from the bottom left to the top right.
@@ -225,6 +225,7 @@ var idle, runner;
 var new_x, new_y, vx = 0, vy = 0;
 var max_v = 30;
 var runnerOnStage = false;
+var jumping = false;
 // Runs the idle animation.
 function runIdle()
 {
@@ -253,11 +254,10 @@ function keyDownControlHandler(e)
     character.addChild(runner);
     runner.play();
 
-  	if(e.keyCode == 87) // W
+  	if(e.keyCode == 87 && jumping == false) // W
     {
-      //vy -= 9;
-  		//new_y = runner.position.y - 100;
-  		runner.scale.x = 1;
+        jumping = true;
+        vy -= 25;
   	}
     /*if(e.keyCode == 83) // S
     {
@@ -298,7 +298,6 @@ function keyUpControlHandler(e)
 {
   // Stops the movement of the runner.
   vx = 0;
-  vy = 0;
 
   // Set the idle sprite to the same position as the runner sprite.
   idle.x = runner.x;
@@ -313,8 +312,54 @@ function keyUpControlHandler(e)
 document.addEventListener('keydown', keyDownControlHandler);
 document.addEventListener('keyup', keyUpControlHandler);
 
+
+
+// A function for handling the physics of the game
+var row = 0;
+var col = 0;
+function detectCollision()
+{
+    if(runnerOnStage){
+        if(runner.y >= HEIGHT - 150){
+            runner.y = HEIGHT - 150;
+            gameStage.position.y = HEIGHT - 50 - runner.y - runner.height;
+            vy = 0;
+            jumping = false;
+        }
+    }
+    if(gamePlaying){
+        vy += 1.5;
+        if(idle.y < HEIGHT - 150){
+            idle.y += vy;
+            if (runnerOnStage){
+                runner.y = idle.y;
+            }
+            gameStage.position.y = HEIGHT - 50 - idle.y - idle.height;
+        }
+        else if(idle.y >= HEIGHT - 150){
+            idle.y = HEIGHT - 150;
+        }
+    }
+
+    // An unsuccessful attempt at dynamic obstacle collision detection
+
+    /*for(row = 0; row < tileMap.length; row++){
+        for(col = 0; col < tileMap[row].length; col++){
+            if(runnerOnStage && tileMap[row][col] > 0
+                && runner.x+(runner.width/2) >= col*(TILE_WIDTH)+(TILE_WIDTH/2)
+                && runner.x-(runner.width/2) <= col*(TILE_WIDTH)-(TILE_WIDTH/2)
+                && runner.y-(runner.height/2) >= row*(TILE_HEIGHT)-(TILE_HEIGHT/2)
+                && runner.y+(runner.height/2) <= row*(TILE_HEIGHT)+(TILE_HEIGHT/2)){
+                vx = 0;
+            }
+        }
+    }*/
+}
+
+
 function animate()
 {
+    detectCollision();
     requestAnimationFrame(animate);
     renderer.render(stage);
 }
