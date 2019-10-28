@@ -292,10 +292,6 @@ function keyDownControlHandler(e)
 
     //createjs.Tween.get(runner.position).to({x: new_x, y: new_y}, 1000); // Tween to new position.
   }
-
-  // Move stage with charcater
-  gameStage.position.x = WIDTH/2 - character.x - character.width/2;
-  gameStage.position.y = HEIGHT - 50 - character.y - character.height;
 }
 
 function keyUpControlHandler(e)
@@ -361,10 +357,17 @@ function detectCollision()
     }
 }*/
 
+function update_camera()
+{
+  // Move stage with charcater
+  gameStage.position.x = WIDTH/2 - character.x - character.width/2;
+  gameStage.position.y = HEIGHT - 50 - character.y - character.height;
+}
 
 function animate()
 {
     //detectCollision();
+    update_camera();
     requestAnimationFrame(animate);
     renderer.render(stage);
 }
