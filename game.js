@@ -239,8 +239,9 @@ function startGame()
 
 //var idle = true;
 var idle, runner;
-var new_x, new_y, vx = 0, vy = 0;
-var max_v = 30;
+var vx = 0; // velocity in the x direction
+var vy = 0; // velocity in the y direction
+//var max_v = 30;
 var runnerOnStage = false;
 var jumping = false;
 var up, left, right;
@@ -343,6 +344,7 @@ function keyDownHandler(e)
     if(e.keyCode == 65) // A
     {
       left = true;
+	  
     }
     if(e.keyCode == 68) // D
     {
@@ -470,8 +472,9 @@ function update_movement()
 // Moves the stage with charcater.
 function update_camera()
 {
-  gameStage.position.x = WIDTH/2 - character.x - character.width/2;
+  gameStage.position.x = WIDTH/2 - character.x;
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
+
 }
 
 function animate()
