@@ -156,32 +156,32 @@ function draw_map()
       if(subArray[j] == 0)
       {
         var newTile = new PIXI.Sprite(skyTileTex);  // Load sprite
-        newTile.anchor.set(0, 1);           // Set anchor
-        newTile.position.set(cur_x, cur_y); // Set position
-        gameStage.addChild(newTile);       // Add to stage
+        newTile.anchor.set(0, 1);                   // Set anchor
+        newTile.position.set(cur_x, cur_y);         // Set position
+        gameStage.addChild(newTile);                // Add to stage
       }
       if(subArray[j] == 1) // Draw grass
       {
         var newTile = new PIXI.Sprite(grassTileTex);  // Load sprite
-        newTile.anchor.set(0, 1);           // Set anchor
-        newTile.position.set(cur_x, cur_y); // Set position
-        gameStage.addChild(newTile);        // Add to stage
+        newTile.anchor.set(0, 1);                     // Set anchor
+        newTile.position.set(cur_x, cur_y);           // Set position
+        gameStage.addChild(newTile);                  // Add to stage
       }
       if(subArray[j] == 2) // Draw dirt
       {
-        var newTile = new PIXI.Sprite(dirtTileTex);  // Load sprite
-        newTile.anchor.set(0, 1);           // Set anchor
-        newTile.position.set(cur_x, cur_y); // Set position
-        gameStage.addChild(newTile);        // Add to stage
+        var newTile = new PIXI.Sprite(dirtTileTex); // Load sprite
+        newTile.anchor.set(0, 1);                   // Set anchor
+        newTile.position.set(cur_x, cur_y);         // Set position
+        gameStage.addChild(newTile);                // Add to stage
       }
-	  if(subArray[j] == 3) // Draw dirt
+	    if(subArray[j] == 3) // Draw dirt
       {
         var newTile = new PIXI.Sprite(cloudTileTex);  // Load sprite
-        newTile.anchor.set(0, 1);           // Set anchor
-        newTile.position.set(cur_x, cur_y); // Set position
-        gameStage.addChild(newTile);        // Add to stage
+        newTile.anchor.set(0, 1);                     // Set anchor
+        newTile.position.set(cur_x, cur_y);           // Set position
+        gameStage.addChild(newTile);                  // Add to stage
       }
-      cur_x += TILE_WIDTH;                // Increment x position
+      cur_x += TILE_WIDTH;  // Increment x position
       // save to new array
     }
     cur_x = 0;            // Reset x position
@@ -199,12 +199,14 @@ runner.position.set(WIDTH/2, 350);
 gameStage.addChild(runner);
 */
 
+/// Player ////////////////////////////
 var character = new PIXI.Container();
 character.height = 100;
 character.width = 100;
 character.pivot.set(50, 50);
 character.position.set(WIDTH/2, HEIGHT - 150);
 var gamePlaying = false;
+var sheet;
 
 function startGame()
 {
@@ -218,7 +220,7 @@ function startGame()
 			console.log('Sound finished');
 		}
 	});
-
+  sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
 	gameStage.addChild(character);
 	runIdle();
 	gamePlaying = true;
@@ -230,10 +232,12 @@ var new_x, new_y, vx = 0, vy = 0;
 var max_v = 30;
 var runnerOnStage = false;
 var jumping = false;
+var up, left, right;
+
 // Runs the idle animation.
 function runIdle()
 {
-	var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+
 	idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
 	//idle.position.set(WIDTH/2, HEIGHT - 150);
 	//idle.anchor.set(0.5);
@@ -241,6 +245,8 @@ function runIdle()
 	character.addChild(idle);
 	idle.play();
 }
+
+/*
 function keyDownControlHandler(e)
 {
   var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
@@ -263,11 +269,7 @@ function keyDownControlHandler(e)
         jumping = true;
         vy -= 25;
   	}
-    /*if(e.keyCode == 83) // S
-    {
-  		runner.position.y += 15;
-  		runner.scale.x = 1;
-  	}*/
+
     if(e.keyCode == 65) // A
     {
       if(vx >= -max_v) { vx -= 2; } // Limits max speed.
@@ -283,17 +285,13 @@ function keyDownControlHandler(e)
   		character.scale.x = 1;
   	}
 
-    /*if(runner.y <= 400)
-    {
-      //vy += 10;
-    }*/
     character.position.x += vx;
     character.position.y += vy;
 
     //createjs.Tween.get(runner.position).to({x: new_x, y: new_y}, 1000); // Tween to new position.
   }
-}
-
+}*/
+/*
 function keyUpControlHandler(e)
 {
   // Stops the movement of the runner.
@@ -307,11 +305,71 @@ function keyUpControlHandler(e)
   character.removeChild(runner);
   character.addChild(idle);
 	idle.play();
+}*/
+
+// Handles key down event
+function keyDownHandler(e)
+{
+  if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
+  {
+  	if(runnerOnStage == false){
+  		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
+  		//runner.position.set(WIDTH/2, HEIGHT - 150);
+  		//runner.anchor.set(0.5);
+  		runner.animationSpeed = 0.1;
+  		runnerOnStage = true;
+  	}
+
+    // Switch to running animation
+    character.removeChild(idle);
+    character.addChild(runner);
+    runner.play();
+
+  	if(e.keyCode == 87 && jumping == false) // W key
+    {
+      up = true;
+  	}
+    if(e.keyCode == 65) // A
+    {
+      left = true;
+    }
+    if(e.keyCode == 68) // D
+    {
+      right = true;
+  	}
+  }
 }
 
-document.addEventListener('keydown', keyDownControlHandler);
-document.addEventListener('keyup', keyUpControlHandler);
+// Handles key up event
+function keyUpHandler(e)
+{
+  if(e.keyCode == 87) // W
+  {
+    up = false;
+  }
+  if(e.keyCode == 65) // A key
+  {
+    left = false;
 
+    // Switch to idle animation
+    character.removeChild(runner);
+    character.addChild(idle);
+  	idle.play();
+  }
+
+  if(e.keyCode == 68) // D key
+  {
+    right = false;
+
+    // Switch to idle animation
+    character.removeChild(runner);
+    character.addChild(idle);
+  	idle.play();
+  }
+}
+
+document.addEventListener('keydown', keyDownHandler);
+document.addEventListener('keyup', keyUpHandler);
 
 
 // A function for handling the physics of the game
@@ -357,9 +415,42 @@ function detectCollision()
     }
 }*/
 
+// Controls player movement based on keyboard input
+function update_movement()
+{
+  if(up && jumping == false) // W key
+  {
+    vy -= 20;
+    jumping = true;
+  }
+  if(left) // A key
+  {
+    vx -= 2;
+    character.scale.x = -1; // Make character face left
+  }
+  if(right) // D key
+  {
+    vx += 2;
+    character.scale.x = 1; // Make character face right
+  }
+
+  vy += 2;  // gravity
+  character.position.x += vx; // Make character move left or right
+  character.position.y += vy; // Make character move up
+  vx *= 0.9; // friction
+
+  if(character.y > HEIGHT-150)
+  {
+    jumping = false;
+    character.y = HEIGHT - 150;
+    vy = 0;
+  }
+}
+/// End of Player /////////////////////
+
+// Moves the stage with charcater.
 function update_camera()
 {
-  // Move stage with charcater
   gameStage.position.x = WIDTH/2 - character.x - character.width/2;
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
 }
@@ -367,6 +458,7 @@ function update_camera()
 function animate()
 {
     //detectCollision();
+    update_movement();
     update_camera();
     requestAnimationFrame(animate);
     renderer.render(stage);
