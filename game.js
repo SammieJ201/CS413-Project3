@@ -182,6 +182,7 @@ function draw_map()
         gameStage.addChild(newTile);        // Add to stage
       }
       cur_x += TILE_WIDTH;                // Increment x position
+      // save to new array
     }
     cur_x = 0;            // Reset x position
     cur_y -= TILE_HEIGHT; // Increment y position
@@ -199,7 +200,10 @@ gameStage.addChild(runner);
 */
 
 var character = new PIXI.Container();
-
+character.height = 100;
+character.width = 100;
+character.pivot.set(50, 50);
+character.position.set(WIDTH/2, HEIGHT - 150);
 var gamePlaying = false;
 
 function startGame()
@@ -231,8 +235,8 @@ function runIdle()
 {
 	var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
 	idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
-	idle.position.set(WIDTH/2, HEIGHT - 150);
-	idle.anchor.set(0.5);
+	//idle.position.set(WIDTH/2, HEIGHT - 150);
+	//idle.anchor.set(0.5);
 	idle.animationSpeed = 0.1;
 	character.addChild(idle);
 	idle.play();
@@ -245,8 +249,8 @@ function keyDownControlHandler(e)
   {
   	if(runnerOnStage == false){
   		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
-  		runner.position.set(WIDTH/2, HEIGHT - 150);
-  		runner.anchor.set(0.5);
+  		//runner.position.set(WIDTH/2, HEIGHT - 150);
+  		//runner.anchor.set(0.5);
   		runner.animationSpeed = 0.1;
   		runnerOnStage = true;
   	}
@@ -269,29 +273,29 @@ function keyDownControlHandler(e)
       if(vx >= -max_v) { vx -= 2; } // Limits max speed.
   		//new_x = runner.position.x - 15;
       //runner.position.x -= 15;
-  		runner.scale.x = -1;
+  		character.scale.x = -1;
     }
     if(e.keyCode == 68) // D
     {
       if(vx <= max_v) { vx += 2; } // Limits max speed.
   		//new_x = runner.position.x + 15;
       //runner.position.x += 15;
-  		runner.scale.x = 1;
+  		character.scale.x = 1;
   	}
 
     /*if(runner.y <= 400)
     {
       //vy += 10;
     }*/
-    runner.position.x += vx;
-    runner.position.y += vy;
+    character.position.x += vx;
+    character.position.y += vy;
 
     //createjs.Tween.get(runner.position).to({x: new_x, y: new_y}, 1000); // Tween to new position.
   }
 
   // Move stage with charcater
-  gameStage.position.x = WIDTH/2 - runner.x - runner.width/2;
-  gameStage.position.y = HEIGHT - 50 - runner.y - runner.height;
+  gameStage.position.x = WIDTH/2 - character.x - character.width/2;
+  gameStage.position.y = HEIGHT - 50 - character.y - character.height;
 }
 
 function keyUpControlHandler(e)
@@ -300,8 +304,8 @@ function keyUpControlHandler(e)
   vx = 0;
 
   // Set the idle sprite to the same position as the runner sprite.
-  idle.x = runner.x;
-  idle.y = runner.y;
+  //idle.x = runner.x;
+  //idle.y = runner.y;
 
   // Change sprite to idle.
   character.removeChild(runner);
@@ -317,6 +321,7 @@ document.addEventListener('keyup', keyUpControlHandler);
 // A function for handling the physics of the game
 var row = 0;
 var col = 0;
+/*
 function detectCollision()
 {
     if(runnerOnStage){
@@ -353,13 +358,13 @@ function detectCollision()
                 vx = 0;
             }
         }
-    }*/
-}
+    }
+}*/
 
 
 function animate()
 {
-    detectCollision();
+    //detectCollision();
     requestAnimationFrame(animate);
     renderer.render(stage);
 }
