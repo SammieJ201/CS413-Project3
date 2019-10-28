@@ -214,7 +214,7 @@ function startGame()
 			console.log('Sound finished');
 		}
 	});
-	
+   
 	gameStage.addChild(character);
 	runIdle();
 	gamePlaying = true;
