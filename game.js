@@ -228,8 +228,9 @@ function startGame()
 
 //var idle = true;
 var idle, runner;
-var new_x, new_y, vx = 0, vy = 0;
-var max_v = 30;
+var vx = 0; // velocity in the x direction
+var vy = 0; // velocity in the y direction
+//var max_v = 30;
 var runnerOnStage = false;
 var jumping = false;
 var up, left, right;
