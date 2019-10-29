@@ -471,11 +471,12 @@ function update_movement()
   {
     vx -= 2;
     //character.scale.x = -1; // Make character face left
+	runner.scale.x = -1;
   }
   if(right) // D key
   {
     vx += 2;
-    character.scale.x = 1; // Make character face right
+    runner.scale.x = 1; // Make character face right
   }
 
   vy += 2;  // gravity
