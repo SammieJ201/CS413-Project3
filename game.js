@@ -25,10 +25,11 @@ menuStage.addChild(playButton);
 // Handles mouse click on play button
 function playButtonHandler(e)
 {
+  stage.removeChild(winStage);  // Get rid of win stage in case this is the 2nd+ playthrough
   stage.removeChild(menuStage); // leave main menu
   stage.addChild(gameStage);    // Go to game stage
 
-    PIXI.loader
+  PIXI.loader
 	.add("Assets/Character/char_spritesheet.json")
 	.load(startGame);
 }
@@ -118,6 +119,31 @@ creditText.position.set(WIDTH/2,HEIGHT/2);
 creditStage.addChild(creditText);
 /// END of Credits Stage //////////////
 
+/// Win Stage /////////////////////////
+var winStage = new PIXI.Container();
+var winBackground = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-menu.png"));
+winStage.addChild(winBackground);
+var returnButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/button-return.png"));
+returnButton.anchor.set(1.0);
+returnButton.position.set(WIDTH, HEIGHT);
+returnButton.interactive = true;
+returnButton.buttonMode = true;
+returnButton.on('mousedown', returnButtonHandler);
+winStage.addChild(returnButton);
+
+// Handles mouse click on return button
+function returnButtonHandler(e)
+{
+  stage.removeChild(instrStage);  // Leave instructions menu
+  stage.addChild(menuStage);      // Go to main menu
+}
+
+// Win text
+var winText = new PIXI.Text('You win!!!');
+winText.anchor.set(0.5);
+winText.position.set(WIDTH/2,HEIGHT/2);
+winStage.addChild(winText);
+/// END of win Stage //////////////////
 
 /// Game Stage ////////////////////////
 var gameStage = new PIXI.Container();
@@ -528,8 +554,9 @@ function check_win()
      endFlag.position.x <= character.position.x+50 &&
      endFlag.position.x >= character.position.x-50)
      {
+       character.position.set(WIDTH/2, HEIGHT - 150);
        stage.removeChild(gameStage);
-       //stage.addChild(winStage);
+       stage.addChild(winStage);
      }
 }
 
