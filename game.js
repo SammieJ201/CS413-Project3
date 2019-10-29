@@ -526,10 +526,10 @@ function update_camera()
 
 function check_win()
 {
-  if(endFlag.position.y >= character.position.y-50 &&
-     endFlag.position.y <= character.position.y+50 &&
-     endFlag.position.x <= character.position.x+50 &&
-     endFlag.position.x >= character.position.x-50)
+  if(character.y <= endFlag.y+100 &&
+     character.y >= endFlag.y &&
+     character.x >= endFlag.x-100 &&
+     character.x <= endFlag.x)
      {
        character.position.set(WIDTH/2, HEIGHT - 150);
        stage.removeChild(gameStage);
