@@ -333,7 +333,7 @@ function keyDownHandler(e)
     if(e.keyCode == 65) // A
     {
       left = true;
-	  
+
     }
     if(e.keyCode == 68) // D
     {
@@ -455,7 +455,6 @@ function update_camera()
 {
   gameStage.position.x = WIDTH/2 - character.x;
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
-
 }
 
 function animate()
