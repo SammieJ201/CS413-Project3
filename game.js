@@ -130,14 +130,14 @@ var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 i
 var cloudTileTex = PIXI.Texture.fromImage("Assets/Tiles/cloud_tile.png");   // 3 in the tileMap array
 
 var tileMap =
-[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [2, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [2, 0, 0, 2, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+ [2, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 0, 0, 0, 0],
+ [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+ [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
 
 // Collision Detection variables
@@ -199,7 +199,6 @@ function draw_map()
   }
 }
 draw_map();
-console.log(tileSprites);
 /// End of game stage /////////////////
 
 
@@ -386,6 +385,7 @@ document.addEventListener('keyup', keyUpHandler);
 
 
 // A function for handling collision detection
+var collision_counter = 0;
 function detectCollision()
 {
     var num = 0;
@@ -393,14 +393,15 @@ function detectCollision()
         // Iterate over sprites that can be collided with
         for(num = 0; num < tileSprites.length; num ++){
             if(
-            (character.position.y + 50 - character.height/2) + (character.height/2) > tileSprites[num].position.y - 25
-            && (character.position.y + 50 - character.height/2) < (tileSprites[num].position.y - 25) + 25
+            (character.position.y + 70 - character.height/2) + (character.height/2) > tileSprites[num].position.y - 25
+            && (character.position.y + 70 - character.height/2) < (tileSprites[num].position.y - 25) + 25
             && (character.position.x - character.width/2) + (character.width/2) > tileSprites[num].position.x - 25
             && (character.position.x - character.width/2) < (tileSprites[num].position.x - 25) + 25)
             {
                 // There are two collision detection flags in case we ever need to flag only one
                 collision_detected_v = true;
                 collision_detected_h = true;
+                collision_counter++;
             }
             if(
             (character.position.y - character.height/2) + (character.height/2) > tileSprites[num].position.y - 25
@@ -411,7 +412,13 @@ function detectCollision()
                 // There are two collision detection flags in case we ever need to flag only one
                 collision_detected_v = true;
                 collision_detected_h = true;
+                collision_counter++;
             }
+            /*if ((character.position.y + 75 - character.height/2) + (character.height/2) == tileSprites[num].position.y - 25
+            && (character.position.y + 75 - character.height/2) == (tileSprites[num].position.y - 25) + 25){
+                collision_detected_v = true;
+                collision_detected_h = false;
+            }*/
         }
     }
 }
@@ -427,7 +434,7 @@ function update_movement()
   if(left) // A key
   {
     vx -= 2;
-    character.scale.x = -1; // Make character face left
+    //character.scale.x = -1; // Make character face left
   }
   if(right) // D key
   {
@@ -457,6 +464,13 @@ function update_movement()
         jumping = false; // Allow for jumping from platforms
     }
   }
+  console.log(character.position.y);
+  //console.log("Collision ");
+  if(character.position.y < HEIGHT - 150 && vy == 0 && (character.position.y - 4) % 50 == 0 && collision_counter <= 2)
+  {
+    character.position.x += vx;
+    console.log("TEST OUTPUT");
+  }
 
   vx *= 0.9; // friction
 
@@ -466,6 +480,8 @@ function update_movement()
     character.y = HEIGHT - 150;
     vy = 0;
   }
+
+  collision_counter = 0;
 }
 /// End of Player /////////////////////
 
