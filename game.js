@@ -480,10 +480,9 @@ function update_movement()
   }
   console.log(character.position.y);
   //console.log("Collision ");
-  if(character.position.y < HEIGHT - 150 && vy == 0 && (character.position.y - 4) % 50 == 0 && collision_counter <= 2)
+  if(character.position.y < HEIGHT - 150 && vy == 0 && ((character.position.y - 4) % 50 == 0 || (character.position.y - 5) % 50 == 0) && collision_counter <= 2)
   {
     character.position.x += vx;
-    console.log("TEST OUTPUT");
   }
 
 
