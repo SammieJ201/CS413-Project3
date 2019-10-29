@@ -80,9 +80,9 @@ returnButton.on('mousedown', returnButtonHandler);
 instrStage.addChild(returnButton);
 
 // Instructions text
-var instrText = new PIXI.Text('Use the "a" and "d" keys to move \n left and right. Use the "w" \n key to jump over obstacles.');
+var instrText = new PIXI.Text('Use the "a" and "d" keys to move \nleft and right. \nUse the "w" key to \njump over obstacles.\n\nReach the flag to win!');
 instrText.anchor.set(0.5);
-instrText.position.set(WIDTH/2,HEIGHT/2);
+instrText.position.set(WIDTH/2,HEIGHT/2-50);
 instrStage.addChild(instrText);
 /// END of instrucions Stage //////////
 
@@ -99,7 +99,7 @@ returnButton.on('mousedown', returnButtonHandler);
 creditStage.addChild(returnButton);
 
 // Credits text
-var creditText = new PIXI.Text('CREDITS GO HERE');
+var creditText = new PIXI.Text('Riley\nSamantha\nWyatt\nGwen');
 creditText.anchor.set(0.5);
 creditText.position.set(WIDTH/2,HEIGHT/2);
 creditStage.addChild(creditText);
@@ -129,7 +129,7 @@ function returnButtonHandler(e)
 {
   stage.removeChild(instrStage);  // Leave instructions menu
   stage.removeChild(winStage);    // Leave win screen
-  stage.removeChild(creditStage);  // Leave credits screen
+  stage.removeChild(creditStage); // Leave credits screen
   stage.addChild(menuStage);      // Go to main menu
 }
 
@@ -239,18 +239,11 @@ draw_map();
 // Adds ending flag to stage
 var endFlag = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Tiles/flag.png"));
 endFlag.anchor.set(1, 0);
-//endFlag.position.set(topRightTile.x, topRightTile.y);
-endFlag.position.set(1000, 200);
+endFlag.position.set(topRightTile.x, topRightTile.y);
+//endFlag.position.set(1000, 200); // For testing
 gameStage.addChild(endFlag);
 /// End of game stage /////////////////
 
-
-// Load player
-/*var runner = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Character/running1.png"));
-runner.anchor.set(0, 1.0);
-runner.position.set(WIDTH/2, 350);
-gameStage.addChild(runner);
-*/
 
 /// Player ////////////////////////////
 var character = new PIXI.Container();
@@ -283,7 +276,6 @@ function startGame()
 var idle, runner;
 var vx = 0; // velocity in the x direction
 var vy = 0; // velocity in the y direction
-//var max_v = 30;
 var runnerOnStage = false;
 var jumping = false;
 var up, left, right;
@@ -291,7 +283,6 @@ var up, left, right;
 // Runs the idle animation.
 function runIdle()
 {
-
 	idle = new PIXI.AnimatedSprite(sheet.animations["idle"]);
 	//idle.position.set(WIDTH/2, HEIGHT - 150);
 	//idle.anchor.set(0.5);
@@ -477,7 +468,7 @@ function update_movement()
   if(left) // A key
   {
     vx -= 2;
-    character.scale.x = -1; // Make character face left
+    //character.scale.x = -1; // Make character face left
   }
   if(right) // D key
   {
@@ -514,8 +505,7 @@ function update_movement()
     character.position.x += vx;
   }
 
-
-
+  // Makes sure player doesn't fall through the floor
   if(character.y > HEIGHT-150)
   {
     jumping = false;
