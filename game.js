@@ -86,7 +86,7 @@ function returnButtonHandler(e)
 }
 
 // Instructions text
-var instrText = new PIXI.Text('INSTRUCTIONS\nGO\nHERE');
+var instrText = new PIXI.Text('Use the "a" and "d" keys to move \n left and right. Use the "w" \n key to jump over obstacles.');
 instrText.anchor.set(0.5);
 instrText.position.set(WIDTH/2,HEIGHT/2);
 instrStage.addChild(instrText);
@@ -343,7 +343,7 @@ function keyDownHandler(e)
     if(e.keyCode == 65) // A
     {
       left = true;
-	  
+
     }
     if(e.keyCode == 68) // D
     {
