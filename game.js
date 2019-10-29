@@ -86,7 +86,7 @@ function returnButtonHandler(e)
 }
 
 // Instructions text
-var instrText = new PIXI.Text('INSTRUCTIONS\nGO\nHERE');
+var instrText = new PIXI.Text('Use the "a" and "d" keys to move \n left and right. Use the "w" \n key to jump over obstacles.');
 instrText.anchor.set(0.5);
 instrText.position.set(WIDTH/2,HEIGHT/2);
 instrStage.addChild(instrText);
@@ -130,15 +130,20 @@ var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 i
 var cloudTileTex = PIXI.Texture.fromImage("Assets/Tiles/cloud_tile.png");   // 3 in the tileMap array
 
 var tileMap =
-[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
- [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+ [2, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+ [2, 0, 0, 2, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+ [2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 2],
+ [2, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 0, 0, 0, 2],
+ [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+ [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+ [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+
+// Collision Detection variables
+var tileSprites = [];
+var collision_detected_h = false;
+var collision_detected_v = false;
 
 // Iterates starting from the bottom left to the top right.
 // To make the map bigger, add rows to the top and columns to the right.
@@ -174,7 +179,7 @@ function draw_map()
         newTile.position.set(cur_x, cur_y);         // Set position
         gameStage.addChild(newTile);                // Add to stage
       }
-	    if(subArray[j] == 3) // Draw dirt
+	    if(subArray[j] == 3) // Draw cloud
       {
         var newTile = new PIXI.Sprite(cloudTileTex);  // Load sprite
         newTile.anchor.set(0, 1);                     // Set anchor
@@ -182,7 +187,12 @@ function draw_map()
         gameStage.addChild(newTile);                  // Add to stage
       }
       cur_x += TILE_WIDTH;  // Increment x position
-      // save to new array
+
+      // Storing all tiles that can be collided with
+      if(subArray[j] != 0 && subArray[j] != 3) // Can't collide with sky or cloud tiles
+      {
+        tileSprites.push(newTile);
+      }
     }
     cur_x = 0;            // Reset x position
     cur_y -= TILE_HEIGHT; // Increment y position
@@ -374,48 +384,44 @@ document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 
 
-// A function for handling the physics of the game
-var row = 0;
-var col = 0;
-/*
+// A function for handling collision detection
+var collision_counter = 0;
 function detectCollision()
 {
+    var num = 0;
     if(runnerOnStage){
-        if(runner.y >= HEIGHT - 150){
-            runner.y = HEIGHT - 150;
-            gameStage.position.y = HEIGHT - 50 - runner.y - runner.height;
-            vy = 0;
-            jumping = false;
-        }
-    }
-    if(gamePlaying){
-        vy += 1.5;
-        if(idle.y < HEIGHT - 150){
-            idle.y += vy;
-            if (runnerOnStage){
-                runner.y = idle.y;
+        // Iterate over sprites that can be collided with
+        for(num = 0; num < tileSprites.length; num ++){
+            if(
+            (character.position.y + 70 - character.height/2) + (character.height/2) > tileSprites[num].position.y - 25
+            && (character.position.y + 70 - character.height/2) < (tileSprites[num].position.y - 25) + 25
+            && (character.position.x - character.width/2) + (character.width/2) > tileSprites[num].position.x - 25
+            && (character.position.x - character.width/2) < (tileSprites[num].position.x - 25) + 25)
+            {
+                // There are two collision detection flags in case we ever need to flag only one
+                collision_detected_v = true;
+                collision_detected_h = true;
+                collision_counter++;
             }
-            gameStage.position.y = HEIGHT - 50 - idle.y - idle.height;
-        }
-        else if(idle.y >= HEIGHT - 150){
-            idle.y = HEIGHT - 150;
-        }
-    }
-
-    // An unsuccessful attempt at dynamic obstacle collision detection
-
-    /*for(row = 0; row < tileMap.length; row++){
-        for(col = 0; col < tileMap[row].length; col++){
-            if(runnerOnStage && tileMap[row][col] > 0
-                && runner.x+(runner.width/2) >= col*(TILE_WIDTH)+(TILE_WIDTH/2)
-                && runner.x-(runner.width/2) <= col*(TILE_WIDTH)-(TILE_WIDTH/2)
-                && runner.y-(runner.height/2) >= row*(TILE_HEIGHT)-(TILE_HEIGHT/2)
-                && runner.y+(runner.height/2) <= row*(TILE_HEIGHT)+(TILE_HEIGHT/2)){
-                vx = 0;
+            if(
+            (character.position.y - character.height/2) + (character.height/2) > tileSprites[num].position.y - 25
+            && (character.position.y - character.height/2) < (tileSprites[num].position.y - 25) + 25
+            && (character.position.x - character.width/2) + (character.width/2) > tileSprites[num].position.x - 25
+            && (character.position.x - character.width/2) < (tileSprites[num].position.x - 25) + 25)
+            {
+                // There are two collision detection flags in case we ever need to flag only one
+                collision_detected_v = true;
+                collision_detected_h = true;
+                collision_counter++;
             }
+            /*if ((character.position.y + 75 - character.height/2) + (character.height/2) == tileSprites[num].position.y - 25
+            && (character.position.y + 75 - character.height/2) == (tileSprites[num].position.y - 25) + 25){
+                collision_detected_v = true;
+                collision_detected_h = false;
+            }*/
         }
     }
-}*/
+}
 
 // Controls player movement based on keyboard input
 function update_movement()
@@ -428,7 +434,7 @@ function update_movement()
   if(left) // A key
   {
     vx -= 2;
-    character.scale.x = -1; // Make character face left
+    //character.scale.x = -1; // Make character face left
   }
   if(right) // D key
   {
@@ -439,6 +445,33 @@ function update_movement()
   vy += 2;  // gravity
   character.position.x += vx; // Make character move left or right
   character.position.y += vy; // Make character move up
+
+
+  detectCollision(); // Check for Collision Detection
+
+  if(collision_detected_h)        // Horizontal Collision Handling
+  {
+    character.position.x -= vx;       // Reset movement
+    collision_detected_h = false;     //  Reset flag
+  }
+  if(collision_detected_v)        //  Vertical Collision Handling
+  {
+    character.position.y -= vy;       // Reset Movement
+    vy = 0;                           // Stop downward velocity
+    collision_detected_v = false;
+    if(character.position.y < HEIGHT - 150)
+    {
+        jumping = false; // Allow for jumping from platforms
+    }
+  }
+  console.log(character.position.y);
+  //console.log("Collision ");
+  if(character.position.y < HEIGHT - 150 && vy == 0 && (character.position.y - 4) % 50 == 0 && collision_counter <= 2)
+  {
+    character.position.x += vx;
+    console.log("TEST OUTPUT");
+  }
+
   vx *= 0.9; // friction
 
   if(character.y > HEIGHT-150)
@@ -447,6 +480,8 @@ function update_movement()
     character.y = HEIGHT - 150;
     vy = 0;
   }
+
+  collision_counter = 0;
 }
 /// End of Player /////////////////////
 
@@ -459,7 +494,6 @@ function update_camera()
 
 function animate()
 {
-    //detectCollision();
     update_movement();
     update_camera();
     requestAnimationFrame(animate);
