@@ -133,8 +133,8 @@ var tileMap =
 [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
  [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
  [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+ [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2],
+ [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
  [2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
  [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
  [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
@@ -158,6 +158,9 @@ var tileMap =
 var tileSprites = [];
 var collision_detected_h = false;
 var collision_detected_v = false;
+
+// Used to save the top right tile to calculate flag placement.
+var topRightTile;
 
 // Iterates starting from the bottom left to the top right.
 // To make the map bigger, add rows to the top and columns to the right.
@@ -207,12 +210,24 @@ function draw_map()
       {
         tileSprites.push(newTile);
       }
+
+      if(i == 0 && j == subArray.length-1) // If top left tile
+      {
+        topRightTile = newTile;
+      }
     }
     cur_x = 0;            // Reset x position
     cur_y -= TILE_HEIGHT; // Increment y position
   }
 }
 draw_map();
+
+// Adds ending flag to stage
+var endFlag = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Tiles/flag.png"));
+endFlag.anchor.set(1, 0);
+//endFlag.position.set(topRightTile.x, topRightTile.y);
+endFlag.position.set(1000, 200);
+gameStage.addChild(endFlag);
 /// End of game stage /////////////////
 
 
@@ -448,7 +463,7 @@ function update_movement()
   if(left) // A key
   {
     vx -= 2;
-    //character.scale.x = -1; // Make character face left
+    character.scale.x = -1; // Make character face left
   }
   if(right) // D key
   {
@@ -506,10 +521,23 @@ function update_camera()
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
 }
 
+function check_win()
+{
+  if(endFlag.position.y >= character.position.y-50 &&
+     endFlag.position.y <= character.position.y+50 &&
+     endFlag.position.x <= character.position.x+50 &&
+     endFlag.position.x >= character.position.x-50)
+     {
+       stage.removeChild(gameStage);
+       //stage.addChild(winStage);
+     }
+}
+
 function animate()
 {
     update_movement();
     update_camera();
+    check_win();
     requestAnimationFrame(animate);
     renderer.render(stage);
 }
