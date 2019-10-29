@@ -79,13 +79,6 @@ returnButton.buttonMode = true;
 returnButton.on('mousedown', returnButtonHandler);
 instrStage.addChild(returnButton);
 
-// Handles mouse click on return button
-function returnButtonHandler(e)
-{
-  stage.removeChild(instrStage);  // Leave instructions menu
-  stage.addChild(menuStage);      // Go to main menu
-}
-
 // Instructions text
 var instrText = new PIXI.Text('Use the "a" and "d" keys to move \n left and right. Use the "w" \n key to jump over obstacles.');
 instrText.anchor.set(0.5);
@@ -97,20 +90,13 @@ instrStage.addChild(instrText);
 var creditStage = new PIXI.Container();
 var creditBackground = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Backgrounds/background-menu.png"));
 creditStage.addChild(creditBackground);
-var creditReturnButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/button-return.png"));
-creditReturnButton.anchor.set(1.0);
-creditReturnButton.position.set(WIDTH, HEIGHT);
-creditReturnButton.interactive = true;
-creditReturnButton.buttonMode = true;
-creditReturnButton.on('mousedown', creditReturnButtonHandler);
-creditStage.addChild(creditReturnButton);
-
-// Handles mouse click on return button
-function creditReturnButtonHandler(e)
-{
-  stage.removeChild(creditStage);  // Leave credits screen
-  stage.addChild(menuStage);       // Go to main menu
-}
+var returnButton = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Buttons/button-return.png"));
+returnButton.anchor.set(1.0);
+returnButton.position.set(WIDTH, HEIGHT);
+returnButton.interactive = true;
+returnButton.buttonMode = true;
+returnButton.on('mousedown', returnButtonHandler);
+creditStage.addChild(returnButton);
 
 // Credits text
 var creditText = new PIXI.Text('CREDITS GO HERE');
@@ -131,19 +117,21 @@ returnButton.buttonMode = true;
 returnButton.on('mousedown', returnButtonHandler);
 winStage.addChild(returnButton);
 
-// Handles mouse click on return button
-function returnButtonHandler(e)
-{
-  stage.removeChild(instrStage);  // Leave instructions menu
-  stage.addChild(menuStage);      // Go to main menu
-}
-
 // Win text
 var winText = new PIXI.Text('You win!!!');
 winText.anchor.set(0.5);
 winText.position.set(WIDTH/2,HEIGHT/2);
 winStage.addChild(winText);
 /// END of win Stage //////////////////
+
+// Handles mouse click on return button
+function returnButtonHandler(e)
+{
+  stage.removeChild(instrStage);  // Leave instructions menu
+  stage.removeChild(winStage);    // Leave win screen
+  stage.removeChild(creditStage);  // Leave credits screen
+  stage.addChild(menuStage);      // Go to main menu
+}
 
 /// Game Stage ////////////////////////
 var gameStage = new PIXI.Container();
