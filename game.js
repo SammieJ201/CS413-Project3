@@ -291,6 +291,11 @@ function runIdle()
 	idle.animationSpeed = 0.1;
 	character.addChild(idle);
 	idle.play();
+	
+	var enemey = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Enemy/oni1.png"));
+	enemy.anchor.set(0.5);
+	enemy.position.set(character.position.x + 100, character.position.y);
+	gameStage.addChild(enemy);
 }
 
 /*
