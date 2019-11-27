@@ -144,31 +144,31 @@ var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 i
 var cloudTileTex = PIXI.Texture.fromImage("Assets/Tiles/cloud_tile.png");   // 3 in the tileMap array
 
 var tileMap =
-[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2],
- [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
- [2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 1, 1, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 2],
- [2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 3, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
- [2, 0, 0, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 2, 2],
- [2, 0, 0, 2, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2],
- [2, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 3, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
- [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
- [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]]
+    [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2],
+    [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 3, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
+    [2, 0, 0, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 2, 2],
+    [2, 0, 0, 2, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2],
+    [2, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 3, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]];
 
 // Collision Detection variables
 var tileSprites = [];
@@ -268,9 +268,11 @@ function startGame()
 			console.log('Sound finished');
 		}
 	});
-  sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+    sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
 	gameStage.addChild(character);
-	runIdle();
+    runIdle();
+    loadMonsters();
+    makeMonstersMove();
 	gamePlaying = true;
 }
 
@@ -292,73 +294,132 @@ function runIdle()
 	character.addChild(idle);
 	idle.play();
 	
-	var enemey = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Enemy/oni1.png"));
-	enemy.anchor.set(0.5);
-	enemy.position.set(character.position.x + 100, character.position.y);
-	gameStage.addChild(enemy);
+}
+var enemies = [];
+var newPos1_1, newPos2_1, newPos3_1, newPos1_2, newPos2_2, newPos3_2, originalPos1, originalPos2, originalPos3;
+
+function loadMonsters()
+{
+    for (var i = 0; i < 3; i++)
+    {
+        var monster = new PIXI.Container();
+        monster.height = 100;
+        monster.width = 100;
+        monster.pivot.set(50, 50);
+
+        var oni = new PIXI.AnimatedSprite(sheet.animations["oni"]);
+        oni.animationSpeed = 0.05;
+        monster.addChild(oni);
+        oni.play();
+        enemies[i] = monster;
+    }
+
+    enemies[0].position.set((WIDTH / 2) + 100, HEIGHT - 150);
+    enemies[1].position.set(1700, HEIGHT - 150);
+    enemies[2].position.set(550, -600);
+   //enemies[2].position.set();
+    gameStage.addChild(enemies[0]);
+    gameStage.addChild(enemies[1]);
+    gameStage.addChild(enemies[2]);
+
+    newPos1_1 = enemies[0].position.x - 100;
+    newPos2_1 = enemies[1].position.x - 100;
+    newPos3_1 = enemies[2].position.x - 100;
+
+    newPos1_2 = enemies[0].position.x + 100;
+    newPos2_2 = enemies[1].position.x + 100;
+    newPos3_2 = enemies[2].position.x + 100;
+
+    originalPos1 = enemies[0].position.x;
+    originalPos2 = enemies[1].position.x;
+    originalPos2 = enemies[2].position.x;
 }
 
-/*
-function keyDownControlHandler(e)
+
+
+var goLeft1 = true;
+var goLeft2 = true;
+var goLeft3 = true;
+
+// Makes monsters walk back and forth between two points
+function makeMonstersMove()
 {
-  var sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+    setTimeout(function () {
+		if(gamePlaying){
+			for (var i = 0; i < 3; i++) {
+				if (character.position.x <= enemies[i].position.x + 50 &&
+					character.position.x >= enemies[i].position.x - 50 &&
+					character.position.y <= enemies[i].position.y + 50 &&
+					character.position.y >= enemies[i].position.y - 50) {
 
-  if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
-  {
-  	if(runnerOnStage == false){
-  		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
-  		//runner.position.set(WIDTH/2, HEIGHT - 150);
-  		//runner.anchor.set(0.5);
-  		runner.animationSpeed = 0.1;
-  		runnerOnStage = true;
-  	}
-    character.removeChild(idle);
-    character.addChild(runner);
-    runner.play();
+					character.position.set(WIDTH / 2, HEIGHT - 150);
+					stage.removeChild(gameStage);
+					stage.addChild(winStage);
+					winText.text = "Rip you dude";
+					gamePlaying = false;
+					return;
+				} // end if character in monster hit box
+			}// end for loop
 
-  	if(e.keyCode == 87 && jumping == false) // W
-    {
-        jumping = true;
-        vy -= 25;
-  	}
+			requestAnimationFrame(function () {
+				makeMonstersMove();
+			});
+			
+			// Checking if each enemy has hit the left-most part of their walking zone
+			if (enemies[0].position.x == newPos1_1) {
+				goLeft1 = false;
+				enemies[0].scale.x = -1;
+			}
+			if (enemies[1].position.x == newPos2_1) {
+				goLeft2 = false;
+				enemies[1].scale.x = -1;
+			}
+			if (enemies[2].position.x == newPos3_1) {
+				goLeft3 = false;
+				enemies[2].scale.x = -1;
+			}
+		
+			// Checking if each enemy has hit the right-most part of their walking zone
+			if (enemies[0].position.x == newPos1_2) {
+				goLeft1 = true;
+				enemies[0].scale.x = 1;
+			}
+			if (enemies[1].position.x == newPos2_2) {
+				goLeft2 = true;
+				enemies[1].scale.x = 1;
+			}
+			if (enemies[2].position.x == newPos3_2) {
+				goLeft3 = true;
+				enemies[2].scale.x = 1;
+			}
+			
+			// Make monsters go left or right
+			if (goLeft1) {
+				enemies[0].position.x -= 1;
+			}
+			else {
+				enemies[0].position.x += 1;
+			}
 
-    if(e.keyCode == 65) // A
-    {
-      if(vx >= -max_v) { vx -= 2; } // Limits max speed.
-  		//new_x = runner.position.x - 15;
-      //runner.position.x -= 15;
-  		character.scale.x = -1;
-    }
-    if(e.keyCode == 68) // D
-    {
-      if(vx <= max_v) { vx += 2; } // Limits max speed.
-  		//new_x = runner.position.x + 15;
-      //runner.position.x += 15;
-  		character.scale.x = 1;
-  	}
+			if (goLeft2) {
+				enemies[1].position.x -= 1;
+			}
+			else {
+				enemies[1].position.x += 1;
+			}
 
-    character.position.x += vx;
-    character.position.y += vy;
-
-    //createjs.Tween.get(runner.position).to({x: new_x, y: new_y}, 1000); // Tween to new position.
-  }
-}*/
-/*
-function keyUpControlHandler(e)
-{
-  // Stops the movement of the runner.
-  vx = 0;
-
-  // Set the idle sprite to the same position as the runner sprite.
-  //idle.x = runner.x;
-  //idle.y = runner.y;
-
-  // Change sprite to idle.
-  character.removeChild(runner);
-  character.addChild(idle);
-	idle.play();
-}*/
-
+			if (goLeft3) {
+				enemies[2].position.x -= 1;
+			}
+			else {
+				enemies[2].position.x += 1;
+			}
+		
+		} // end if gamePlaying
+		
+    }//end function()
+    )// end setTimeout
+}
 // Handles key down event
 function keyDownHandler(e)
 {
@@ -464,6 +525,11 @@ function detectCollision()
     }
 }
 
+/*function detectMonsterCollision()
+{
+
+}*/
+
 // Controls player movement based on keyboard input
 function update_movement()
 {
@@ -486,6 +552,7 @@ function update_movement()
   vy += 2;  // gravity
   character.position.x += vx; // Make character move left or right
   character.position.y += vy; // Make character move up
+  console.log(character.position.x + " " + character.position.y);
   vx *= 0.8; // friction
 
   detectCollision(); // Check for Collision Detection
@@ -509,7 +576,8 @@ function update_movement()
   //console.log("Collision ");
   if(character.position.y < HEIGHT - 150 && vy == 0 && ((character.position.y - 4) % 50 == 0 || (character.position.y - 5) % 50 == 0) && collision_counter <= 2)
   {
-    character.position.x += vx;
+      character.position.x += vx;
+      
   }
 
   // Makes sure player doesn't fall through the floor
