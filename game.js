@@ -6,6 +6,7 @@ var HEIGHT = 400;
 var renderer = PIXI.autoDetectRenderer({width: WIDTH, height: HEIGHT, backgroundColor: 0x1a52ff});
 gameport.appendChild(renderer.view);
 var stage = new PIXI.Container();
+var first_played = false;
 
 /// Menu Stage ////////////////////////
 var menuStage = new PIXI.Container();
@@ -29,9 +30,16 @@ function playButtonHandler(e)
   stage.removeChild(menuStage); // leave main menu
   stage.addChild(gameStage);    // Go to game stage
 
-  PIXI.loader
+  if(first_played == false)
+  {
+    PIXI.loader
 	.add("Assets/Character/char_spritesheet.json")
 	.load(startGame);
+  }
+  else if(first_played == true)
+  {
+    startGame();
+  }
 }
 
 // Add instructions Button
@@ -151,17 +159,17 @@ var tileMap =
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2],
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2],
     [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
-    [2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-    [2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-    [2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-    [2, 1, 1, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2],
     [2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 3, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2],
-    [2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
-    [2, 0, 0, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 2, 2, 2],
+    [2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
+    [2, 0, 0, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1, 2, 2],
     [2, 0, 0, 2, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2],
     [2, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 3, 0, 2],
@@ -172,8 +180,9 @@ var tileMap =
 
 // Collision Detection variables
 var tileSprites = [];
-var collision_detected_h = false;
-var collision_detected_v = false;
+//var collision_detected_h = false;
+//var collision_detected_v = false;
+var collision_detected = false;
 
 // Used to save the top right tile to calculate flag placement.
 var topRightTile;
@@ -258,22 +267,33 @@ var sheet;
 
 function startGame()
 {
-	// Play background music
-	PIXI.sound.Sound.from({
-		url: 'Assets/Sounds/background_music2.mp3',
-		autoPlay: true,
-		volume: .5,
-		loop: true,
-		complete: function() {
-			console.log('Sound finished');
-		}
-	});
-    sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
-	gameStage.addChild(character);
-    runIdle();
-    loadMonsters();
-    makeMonstersMove();
-	gamePlaying = true;
+	if(first_played == false) // Execute this branch to initialize the game state on the first run
+	{
+		// Play background music
+        PIXI.sound.Sound.from({
+            url: 'Assets/Sounds/background_music2.mp3',
+            autoPlay: true,
+            volume: .5,
+            loop: true,
+            complete: function() {
+                console.log('Sound finished');
+            }
+        });
+	    sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
+	    first_played = true;
+        gameStage.addChild(character);
+        runIdle();
+        loadMonsters();
+        makeMonstersMove();
+        winText.text = 'You win!!!';
+        gamePlaying = true;
+	}
+	else // Execute this branch on all subsequent runs
+	{
+        makeMonstersMove();
+        winText.text = 'You win!!!';
+        gamePlaying = true;
+	}
 }
 
 //var idle = true;
@@ -500,9 +520,7 @@ function detectCollision()
             && (character.position.x - character.width/2) + (character.width/2) > tileSprites[num].position.x - 25
             && (character.position.x - character.width/2) < (tileSprites[num].position.x - 25) + 25)
             {
-                // There are two collision detection flags in case we ever need to flag only one
-                collision_detected_v = true;
-                collision_detected_h = true;
+                collision_detected = true;
                 collision_counter++;
             }
             if(
@@ -511,16 +529,9 @@ function detectCollision()
             && (character.position.x - character.width/2) + (character.width/2) > tileSprites[num].position.x - 25
             && (character.position.x - character.width/2) < (tileSprites[num].position.x - 25) + 25)
             {
-                // There are two collision detection flags in case we ever need to flag only one
-                collision_detected_v = true;
-                collision_detected_h = true;
+                collision_detected = true;
                 collision_counter++;
             }
-            /*if ((character.position.y + 75 - character.height/2) + (character.height/2) == tileSprites[num].position.y - 25
-            && (character.position.y + 75 - character.height/2) == (tileSprites[num].position.y - 25) + 25){
-                collision_detected_v = true;
-                collision_detected_h = false;
-            }*/
         }
     }
 }
@@ -550,35 +561,36 @@ function update_movement()
   }
 
   vy += 2;  // gravity
+
+  // Horizontal Handling
   character.position.x += vx; // Make character move left or right
+
+  detectCollision(); // Check for Collision Detection
+  if(collision_detected) // Horizontal Collision Detection
+  {
+    character.position.x -= vx; // Reset Movement
+    collision_detected = false; // Reset Flag
+  }
+
+  // Vertical Handling
   character.position.y += vy; // Make character move up
+
+  detectCollision(); // Check for Collision Detection
+  if(collision_detected) // Vertical Collision Detection
+  {
+    character.position.y -= vy; // Reset Movement
+    vy = 0;                     // Stop downward velocity
+    collision_detected = false  // Reset Flag
+    if(character.position.y < HEIGHT - 150)
+    {
+        jumping = false // Allow for jumping from platforms
+    }
+  }
+
   console.log(character.position.x + " " + character.position.y);
   vx *= 0.8; // friction
 
-  detectCollision(); // Check for Collision Detection
-
-  if(collision_detected_h)        // Horizontal Collision Handling
-  {
-    character.position.x -= vx;       // Reset movement
-    collision_detected_h = false;     //  Reset flag
-  }
-  if(collision_detected_v)        //  Vertical Collision Handling
-  {
-    character.position.y -= vy;       // Reset Movement
-    vy = 0;                           // Stop downward velocity
-    collision_detected_v = false;
-    if(character.position.y < HEIGHT - 150)
-    {
-        jumping = false; // Allow for jumping from platforms
-    }
-  }
   console.log(character.position.y);
-  //console.log("Collision ");
-  if(character.position.y < HEIGHT - 150 && vy == 0 && ((character.position.y - 4) % 50 == 0 || (character.position.y - 5) % 50 == 0) && collision_counter <= 2)
-  {
-      character.position.x += vx;
-      
-  }
 
   // Makes sure player doesn't fall through the floor
   if(character.y > HEIGHT-150)
