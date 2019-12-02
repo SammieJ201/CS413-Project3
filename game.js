@@ -394,7 +394,8 @@ function loadMonsters(lvl)
         monster.height = 100;
         monster.width = 100;
         monster.pivot.set(50, 50);
-
+		
+		// There are 2 available sprites for monster - oni1 and oni2
         var oni = new PIXI.AnimatedSprite(sheet.animations["oni"]);
         oni.animationSpeed = 0.05;
         monster.addChild(oni);
