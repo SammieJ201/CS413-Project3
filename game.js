@@ -365,6 +365,7 @@ function startGame()
 
 //var idle = true;
 var idle, runner;
+var runnerRight, runnerLeft;
 var vx = 0; // velocity in the x direction
 var vy = 0; // velocity in the y direction
 var runnerOnStage = false;
@@ -551,34 +552,58 @@ function makeMonstersMove()
 // Handles key down event
 function keyDownHandler(e)
 {
-  if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
+  if(e.keyCode == 87 || e.keyCode == 65 ||e.keyCode == 68)
   {
   	if(runnerOnStage == false){
-  		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
+		//runner = new PIXI.AnimatedSprite(sheet.animations["running"]);	
+  		runnerLeft = new PIXI.AnimatedSprite(sheet.animations["runningleft"]);
+		runnerRight = new PIXI.AnimatedSprite(sheet.animations["running"]);
   		//runner.position.set(WIDTH/2, HEIGHT - 150);
   		//runner.anchor.set(0.5);
-  		runner.animationSpeed = 0.1;
+  		runnerLeft.animationSpeed = 0.1;
+		runnerRight.animationSpeed = 0.1;
   		runnerOnStage = true;
   	}
-
+	
     // Switch to running animation
     character.removeChild(idle);
-    character.addChild(runner);
-    runner.play();
-
+	
   	if(e.keyCode == 87 && jumping == false) // W key
     {
-      up = true;
+		up = true;
+		// If 'a' is being pressed at the same time, play the runningleft anim
+		if(left)
+		{
+			character.addChild(runnerLeft);
+			character.removeChild(runnerRight);
+			runnerLeft.play();
+		}
+		// else, play the default running anim
+		else
+		{
+			character.addChild(runnerRight);
+			character.removeChild(runnerLeft);
+			runnerRight.play();
+		}
   	}
+	// Going left - play runningleft
     if(e.keyCode == 65) // A
     {
-      left = true;
+		left = true;
+		character.addChild(runnerLeft);
+		runnerLeft.play();
+	  //runner.scale.x = -1;
 
     }
+	// Going right - play running (default - goes right). 
     if(e.keyCode == 68) // D
     {
-      right = true;
+		right = true;
+		character.addChild(runnerRight);
+		runnerRight.play();
+	  //runner.scale.x = 1;
   	}
+	
   }
 }
 
@@ -594,7 +619,8 @@ function keyUpHandler(e)
     left = false;
 
     // Switch to idle animation
-    character.removeChild(runner);
+    character.removeChild(runnerLeft);
+	character.removeChild(runnerRight);
     character.addChild(idle);
   	idle.play();
   }
@@ -604,7 +630,8 @@ function keyUpHandler(e)
     right = false;
 
     // Switch to idle animation
-    character.removeChild(runner);
+    character.removeChild(runnerLeft);
+	character.removeChild(runnerRight);
     character.addChild(idle);
   	idle.play();
   }
@@ -656,11 +683,13 @@ function update_movement()
   {
     vx -= 2;
     //character.scale.x = -1; // Make character face left
+	//character.childNodes.scale.x = -1;
   }
   if(right) // D key
   {
     vx += 2;
     //character.scale.x = 1; // Make character face right
+	//character.childNodes.scale.x = 1;
   }
 
   vy += 2;  // gravity
@@ -727,6 +756,7 @@ function check_win()
      {
 	   levelNum++;
 	   // Load level 2
+	   
 	   if(levelNum == 2)
 	   {
 	       levelOne.removeChildren();
