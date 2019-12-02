@@ -143,15 +143,17 @@ function returnButtonHandler(e)
 
 /// Game Stage ////////////////////////
 var gameStage = new PIXI.Container();
-
+var levelOne = new PIXI.Container();
+var levelTwo = new PIXI.Container();
+var levelThree = new PIXI.Container();
 var TILE_HEIGHT = 50;
 var TILE_WIDTH = 50;
 var skyTileTex = PIXI.Texture.fromImage("Assets/Tiles/sky_tile.png");   // 0 in the tileMap array
 var grassTileTex = PIXI.Texture.fromImage("Assets/Tiles/grass_tile.png"); // 1 in the tileMap array
 var dirtTileTex = PIXI.Texture.fromImage("Assets/Tiles/dirt_tile.png");   // 2 in the tileMap array
 var cloudTileTex = PIXI.Texture.fromImage("Assets/Tiles/cloud_tile.png");   // 3 in the tileMap array
-
-var tileMap =
+var levelNum = 1;
+var tileMap1 =
     [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
     [2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
@@ -178,6 +180,59 @@ var tileMap =
     [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
     [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]];
 
+var tileMap2 =
+    [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2],
+    [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+    [2, 0, 0, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2],
+    [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 0, 0, 0, 3, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
+    [2, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1, 2, 2],
+    [2, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 0, 3, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]];
+
+var tileMap3 =
+    [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 2, 2, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 3, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 3, 1, 1, 1, 1, 0, 0, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 1, 2, 2, 2, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2],
+    [2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]];
 // Collision Detection variables
 var tileSprites = [];
 //var collision_detected_h = false;
@@ -189,8 +244,9 @@ var topRightTile;
 
 // Iterates starting from the bottom left to the top right.
 // To make the map bigger, add rows to the top and columns to the right.
-function draw_map()
+function draw_map(tileMap, levelStage)
 {
+  tileSprites = [];
   var cur_x = 0; // Keep track of current x position
   var cur_y = HEIGHT; // Keep track of current y position
 
@@ -205,28 +261,28 @@ function draw_map()
         var newTile = new PIXI.Sprite(skyTileTex);  // Load sprite
         newTile.anchor.set(0, 1);                   // Set anchor
         newTile.position.set(cur_x, cur_y);         // Set position
-        gameStage.addChild(newTile);                // Add to stage
+        levelStage.addChild(newTile);                // Add to stage
       }
       if(subArray[j] == 1) // Draw grass
       {
         var newTile = new PIXI.Sprite(grassTileTex);  // Load sprite
         newTile.anchor.set(0, 1);                     // Set anchor
         newTile.position.set(cur_x, cur_y);           // Set position
-        gameStage.addChild(newTile);                  // Add to stage
+        levelStage.addChild(newTile);                  // Add to stage
       }
       if(subArray[j] == 2) // Draw dirt
       {
         var newTile = new PIXI.Sprite(dirtTileTex); // Load sprite
         newTile.anchor.set(0, 1);                   // Set anchor
         newTile.position.set(cur_x, cur_y);         // Set position
-        gameStage.addChild(newTile);                // Add to stage
+        levelStage.addChild(newTile);                // Add to stage
       }
 	    if(subArray[j] == 3) // Draw cloud
       {
         var newTile = new PIXI.Sprite(cloudTileTex);  // Load sprite
         newTile.anchor.set(0, 1);                     // Set anchor
         newTile.position.set(cur_x, cur_y);           // Set position
-        gameStage.addChild(newTile);                  // Add to stage
+        levelStage.addChild(newTile);                  // Add to stage
       }
       cur_x += TILE_WIDTH;  // Increment x position
 
@@ -244,8 +300,10 @@ function draw_map()
     cur_x = 0;            // Reset x position
     cur_y -= TILE_HEIGHT; // Increment y position
   }
+  
+  gameStage.addChild(levelStage);
 }
-draw_map();
+draw_map(tileMap1, levelOne);
 
 // Adds ending flag to stage
 var endFlag = new PIXI.Sprite(PIXI.Texture.fromImage("Assets/Tiles/flag.png"));
@@ -262,6 +320,15 @@ character.height = 100;
 character.width = 100;
 character.pivot.set(50, 50);
 character.position.set(WIDTH/2, HEIGHT - 150);
+
+/// Score text ///////////////////////
+var scoreText = new PIXI.Text("Level: " + levelNum);
+scoreText.anchor.x = 0;
+scoreText.anchor.y = 1;
+scoreText.position.x = 0;
+scoreText.position.y = HEIGHT;
+levelOne.addChild(scoreText); 
+
 var gamePlaying = false;
 var sheet;
 
@@ -281,9 +348,9 @@ function startGame()
         });
 	    sheet = PIXI.Loader.shared.resources["Assets/Character/char_spritesheet.json"].spritesheet;
 	    first_played = true;
-        gameStage.addChild(character);
+        levelOne.addChild(character);
         runIdle();
-        loadMonsters();
+        loadMonsters(1);
         makeMonstersMove();
         winText.text = 'You win!!!';
         gamePlaying = true;
@@ -298,6 +365,7 @@ function startGame()
 
 //var idle = true;
 var idle, runner;
+var runnerRight, runnerLeft;
 var vx = 0; // velocity in the x direction
 var vy = 0; // velocity in the y direction
 var runnerOnStage = false;
@@ -318,43 +386,84 @@ function runIdle()
 var enemies = [];
 var newPos1_1, newPos2_1, newPos3_1, newPos1_2, newPos2_2, newPos3_2, originalPos1, originalPos2, originalPos3;
 
-function loadMonsters()
+function loadMonsters(lvl)
 {
+	// Load 3 monster sprites and play the animation on each of them
     for (var i = 0; i < 3; i++)
     {
         var monster = new PIXI.Container();
         monster.height = 100;
         monster.width = 100;
         monster.pivot.set(50, 50);
-
+		
+		// There are 2 available sprites for monster - oni1 and oni2
         var oni = new PIXI.AnimatedSprite(sheet.animations["oni"]);
         oni.animationSpeed = 0.05;
         monster.addChild(oni);
         oni.play();
         enemies[i] = monster;
     }
+	// Set monsters to certain positions for level 1
+	if(lvl == 1)
+	{		
+		enemies[0].position.set(1100, HEIGHT - 150);
+		enemies[1].position.set(1700, HEIGHT - 150);
+		enemies[2].position.set(550, -600);	
+			
+		levelOne.addChild(enemies[0]);
+		levelOne.addChild(enemies[1]);
+		levelOne.addChild(enemies[2]);
+	}
+	// Set monsters to certain positions for level 2
+	if(lvl == 2)
+	{		
+		enemies[0].position.set(1600, -200);
+		enemies[1].position.set(900, -600);
+		enemies[2].position.set(400, -600);
+		
+		levelTwo.addChild(enemies[0]);
+		levelTwo.addChild(enemies[1]);
+		levelTwo.addChild(enemies[2]);
 
-    enemies[0].position.set((WIDTH / 2) + 100, HEIGHT - 150);
-    enemies[1].position.set(1700, HEIGHT - 150);
-    enemies[2].position.set(550, -600);
+	}
+	// Set monsters to certain positions for level 3
+    if(lvl == 3)
+	{
+		enemies[0].position.set(1650, -600);
+		enemies[1].position.set(400, -300);
+		enemies[2].position.set(1100, -600);
+
+		levelThree.addChild(enemies[0]);
+		levelThree.addChild(enemies[1]);
+		levelThree.addChild(enemies[2]);
+
+	}
    //enemies[2].position.set();
-    gameStage.addChild(enemies[0]);
-    gameStage.addChild(enemies[1]);
-    gameStage.addChild(enemies[2]);
-
+	
+	// Getting 2 positions for the monster to pace between in makeMonstersMove()
+	// Finding position 1
     newPos1_1 = enemies[0].position.x - 100;
     newPos2_1 = enemies[1].position.x - 100;
     newPos3_1 = enemies[2].position.x - 100;
-
+	
+	// Finding position 2
     newPos1_2 = enemies[0].position.x + 100;
     newPos2_2 = enemies[1].position.x + 100;
     newPos3_2 = enemies[2].position.x + 100;
 
+	// Save original positions in case the game is reloaded
     originalPos1 = enemies[0].position.x;
     originalPos2 = enemies[1].position.x;
     originalPos2 = enemies[2].position.x;
-}
+}// end loadMonsters
 
+/*var remove_monsters(levelStage)
+{
+	levelStage.removeChild(enemies[0]);
+	levelStage.removeChild(enemies[1]);
+	levelStage.removeChild(enemies[2]);
+}
+*/
 
 
 var goLeft1 = true;
@@ -439,38 +548,62 @@ function makeMonstersMove()
 		
     }//end function()
     )// end setTimeout
-}
+} // end makeMonstersMove
 // Handles key down event
 function keyDownHandler(e)
 {
-  if(e.keyCode == 87 || e.keyCode == 83 ||e.keyCode == 65 ||e.keyCode == 68)
+  if(e.keyCode == 87 || e.keyCode == 65 ||e.keyCode == 68)
   {
   	if(runnerOnStage == false){
-  		runner = new PIXI.AnimatedSprite(sheet.animations["running"]);
+		//runner = new PIXI.AnimatedSprite(sheet.animations["running"]);	
+  		runnerLeft = new PIXI.AnimatedSprite(sheet.animations["runningleft"]);
+		runnerRight = new PIXI.AnimatedSprite(sheet.animations["running"]);
   		//runner.position.set(WIDTH/2, HEIGHT - 150);
   		//runner.anchor.set(0.5);
-  		runner.animationSpeed = 0.1;
+  		runnerLeft.animationSpeed = 0.1;
+		runnerRight.animationSpeed = 0.1;
   		runnerOnStage = true;
   	}
-
+	
     // Switch to running animation
     character.removeChild(idle);
-    character.addChild(runner);
-    runner.play();
-
+	
   	if(e.keyCode == 87 && jumping == false) // W key
     {
-      up = true;
+		up = true;
+		// If 'a' is being pressed at the same time, play the runningleft anim
+		if(left)
+		{
+			character.addChild(runnerLeft);
+			character.removeChild(runnerRight);
+			runnerLeft.play();
+		}
+		// else, play the default running anim
+		else
+		{
+			character.addChild(runnerRight);
+			character.removeChild(runnerLeft);
+			runnerRight.play();
+		}
   	}
+	// Going left - play runningleft
     if(e.keyCode == 65) // A
     {
-      left = true;
+		left = true;
+		character.addChild(runnerLeft);
+		runnerLeft.play();
+	  //runner.scale.x = -1;
 
     }
+	// Going right - play running (default - goes right). 
     if(e.keyCode == 68) // D
     {
-      right = true;
+		right = true;
+		character.addChild(runnerRight);
+		runnerRight.play();
+	  //runner.scale.x = 1;
   	}
+	
   }
 }
 
@@ -486,7 +619,8 @@ function keyUpHandler(e)
     left = false;
 
     // Switch to idle animation
-    character.removeChild(runner);
+    character.removeChild(runnerLeft);
+	character.removeChild(runnerRight);
     character.addChild(idle);
   	idle.play();
   }
@@ -496,7 +630,8 @@ function keyUpHandler(e)
     right = false;
 
     // Switch to idle animation
-    character.removeChild(runner);
+    character.removeChild(runnerLeft);
+	character.removeChild(runnerRight);
     character.addChild(idle);
   	idle.play();
   }
@@ -536,11 +671,6 @@ function detectCollision()
     }
 }
 
-/*function detectMonsterCollision()
-{
-
-}*/
-
 // Controls player movement based on keyboard input
 function update_movement()
 {
@@ -553,11 +683,13 @@ function update_movement()
   {
     vx -= 2;
     //character.scale.x = -1; // Make character face left
+	//character.childNodes.scale.x = -1;
   }
   if(right) // D key
   {
     vx += 2;
     //character.scale.x = 1; // Make character face right
+	//character.childNodes.scale.x = 1;
   }
 
   vy += 2;  // gravity
@@ -587,10 +719,10 @@ function update_movement()
     }
   }
 
-  console.log(character.position.x + " " + character.position.y);
+  //console.log(character.position.x + " " + character.position.y);
   vx *= 0.8; // friction
 
-  console.log(character.position.y);
+  //console.log(character.position.y);
 
   // Makes sure player doesn't fall through the floor
   if(character.y > HEIGHT-150)
@@ -609,18 +741,54 @@ function update_camera()
 {
   gameStage.position.x = WIDTH/2 - character.x;
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
+  scoreText.position.x = character.x - WIDTH/2;
+  scoreText.position.y = character.y - HEIGHT/2;
+  
 }
 
+// Checks if character has hit a flag.
 function check_win()
 {
   if(character.y <= endFlag.y+100 &&
      character.y >= endFlag.y &&
-     character.x >= endFlag.x-100 &&
+     character.x >= endFlag.x-150 &&
      character.x <= endFlag.x)
      {
-       character.position.set(WIDTH/2, HEIGHT - 150);
-       stage.removeChild(gameStage);
-       stage.addChild(winStage);
+	   levelNum++;
+	   // Load level 2
+	   
+	   if(levelNum == 2)
+	   {
+	       levelOne.removeChildren();
+		   gameStage.removeChild(levelOne);
+		   draw_map(tileMap2, levelTwo);
+		   character.position.set(WIDTH/2, HEIGHT - 150);
+		   loadMonsters(2);
+		   levelTwo.addChild(character);
+		   levelTwo.addChild(scoreText);
+		   scoreText.text = "Level: " + levelNum;
+		   gameStage.addChild(endFlag);
+	   }
+	   // Load level 3
+	   else if(levelNum == 3)
+	   {
+	       levelTwo.removeChildren();
+	       gameStage.removeChild(levelTwo);
+		   draw_map(tileMap3, levelThree);
+		   character.position.set(WIDTH/2, HEIGHT - 150);
+		   loadMonsters(3);
+		   levelThree.addChild(character);
+		   levelThree.addChild(scoreText);
+		   scoreText.text = "Level: " + levelNum;
+		   gameStage.addChild(endFlag);
+	   }
+	   // Show end screen
+	   else
+	   {		   
+		   character.position.set(WIDTH/2, HEIGHT - 150);
+		   stage.removeChild(gameStage);
+		   stage.addChild(winStage);
+	   }
      }
 }
 
