@@ -321,6 +321,14 @@ character.width = 100;
 character.pivot.set(50, 50);
 character.position.set(WIDTH/2, HEIGHT - 150);
 
+/// Score text ///////////////////////
+var scoreText = new PIXI.Text("Level: " + levelNum);
+scoreText.anchor.x = 0;
+scoreText.anchor.y = 1;
+scoreText.position.x = 0;
+scoreText.position.y = HEIGHT;
+levelOne.addChild(scoreText); 
+
 var gamePlaying = false;
 var sheet;
 
@@ -379,6 +387,7 @@ var newPos1_1, newPos2_1, newPos3_1, newPos1_2, newPos2_2, newPos3_2, originalPo
 
 function loadMonsters(lvl)
 {
+	// Load 3 monster sprites and play the animation on each of them
     for (var i = 0; i < 3; i++)
     {
         var monster = new PIXI.Container();
@@ -392,6 +401,7 @@ function loadMonsters(lvl)
         oni.play();
         enemies[i] = monster;
     }
+	// Set monsters to certain positions for level 1
 	if(lvl == 1)
 	{		
 		enemies[0].position.set(1100, HEIGHT - 150);
@@ -402,6 +412,7 @@ function loadMonsters(lvl)
 		levelOne.addChild(enemies[1]);
 		levelOne.addChild(enemies[2]);
 	}
+	// Set monsters to certain positions for level 2
 	if(lvl == 2)
 	{		
 		enemies[0].position.set(1600, -200);
@@ -413,6 +424,7 @@ function loadMonsters(lvl)
 		levelTwo.addChild(enemies[2]);
 
 	}
+	// Set monsters to certain positions for level 3
     if(lvl == 3)
 	{
 		enemies[0].position.set(1650, -600);
@@ -426,18 +438,22 @@ function loadMonsters(lvl)
 	}
    //enemies[2].position.set();
 	
+	// Getting 2 positions for the monster to pace between in makeMonstersMove()
+	// Finding position 1
     newPos1_1 = enemies[0].position.x - 100;
     newPos2_1 = enemies[1].position.x - 100;
     newPos3_1 = enemies[2].position.x - 100;
-
+	
+	// Finding position 2
     newPos1_2 = enemies[0].position.x + 100;
     newPos2_2 = enemies[1].position.x + 100;
     newPos3_2 = enemies[2].position.x + 100;
 
+	// Save original positions in case the game is reloaded
     originalPos1 = enemies[0].position.x;
     originalPos2 = enemies[1].position.x;
     originalPos2 = enemies[2].position.x;
-}
+}// end loadMonsters
 
 /*var remove_monsters(levelStage)
 {
@@ -530,7 +546,7 @@ function makeMonstersMove()
 		
     }//end function()
     )// end setTimeout
-}
+} // end makeMonstersMove
 // Handles key down event
 function keyDownHandler(e)
 {
@@ -695,6 +711,9 @@ function update_camera()
 {
   gameStage.position.x = WIDTH/2 - character.x;
   gameStage.position.y = HEIGHT - 50 - character.y - character.height;
+  scoreText.position.x = character.x - WIDTH/2;
+  scoreText.position.y = character.y - HEIGHT/2;
+  
 }
 
 // Checks if character has hit a flag.
@@ -715,8 +734,11 @@ function check_win()
 		   character.position.set(WIDTH/2, HEIGHT - 150);
 		   loadMonsters(2);
 		   levelTwo.addChild(character);
+		   levelTwo.addChild(scoreText);
+		   scoreText.text = "Level: " + levelNum;
 		   gameStage.addChild(endFlag);
 	   }
+	   // Load level 3
 	   else if(levelNum == 3)
 	   {
 	       levelTwo.removeChildren();
@@ -725,6 +747,8 @@ function check_win()
 		   character.position.set(WIDTH/2, HEIGHT - 150);
 		   loadMonsters(3);
 		   levelThree.addChild(character);
+		   levelThree.addChild(scoreText);
+		   scoreText.text = "Level: " + levelNum;
 		   gameStage.addChild(endFlag);
 	   }
 	   // Show end screen
