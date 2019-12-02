@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>5.1.0</string>
+        <string>5.2.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>pixijs4</string>
         <key>textureFileName</key>
-        <filename>../../char_spritesheet.png</filename>
+        <filename>char_spritesheet.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -183,12 +183,20 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">idle1.png</key>
             <key type="filename">idle2.png</key>
+            <key type="filename">oni1.png</key>
+            <key type="filename">oni2.png</key>
             <key type="filename">running1.png</key>
             <key type="filename">running2.png</key>
             <key type="filename">running4.png</key>
+            <key type="filename">runningleft1.png</key>
+            <key type="filename">runningleft2.png</key>
+            <key type="filename">runningleft3.png</key>
+            <key type="filename">runningleft4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
@@ -202,6 +210,8 @@
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
@@ -220,6 +230,12 @@
             <filename>running2.png</filename>
             <filename>running3.png</filename>
             <filename>running4.png</filename>
+            <filename>oni1.png</filename>
+            <filename>oni2.png</filename>
+            <filename>runningleft1.png</filename>
+            <filename>runningleft2.png</filename>
+            <filename>runningleft3.png</filename>
+            <filename>runningleft4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
