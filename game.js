@@ -88,7 +88,7 @@ returnButton.on('mousedown', returnButtonHandler);
 instrStage.addChild(returnButton);
 
 // Instructions text
-var instrText = new PIXI.Text('Use the "a" and "d" keys to move \nleft and right. \nUse the "w" key to \njump over obstacles.\n\nReach the flag to win!');
+var instrText = new PIXI.Text('Use the "a" and "d" keys to move \nleft and right. \nUse the "w" key to \njump over obstacles.\n\nReach the flag to get to the next level. \nFinish all 3 levels to win!');
 instrText.anchor.set(0.5);
 instrText.position.set(WIDTH/2,HEIGHT/2-50);
 instrStage.addChild(instrText);
@@ -107,7 +107,7 @@ returnButton.on('mousedown', returnButtonHandler);
 creditStage.addChild(returnButton);
 
 // Credits text
-var creditText = new PIXI.Text('Riley\nSamantha\nWyatt\nGwen');
+var creditText = new PIXI.Text('Riley McWilliams\nSamantha Earl\nWyatt Evans\nGwen Morris');
 creditText.anchor.set(0.5);
 creditText.position.set(WIDTH/2,HEIGHT/2);
 creditStage.addChild(creditText);
